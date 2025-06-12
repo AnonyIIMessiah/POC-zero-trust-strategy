@@ -40,14 +40,14 @@ app.get('/products/:id', async (req, res) => {
 
 // 📌 POST new product
 app.post('/products', async (req, res) => {
-    const { id, name, price } = req.body;
-    if (!id || !name || !price) {
-        return res.status(400).json({ error: 'Missing id, name, or price' });
+    const { id, name } = req.body;
+    if (!id || !name ) {
+        return res.status(400).json({ error: 'Missing id or name' });
     }
 
     const params = {
         TableName: TABLE_NAME,
-        Item: { id, name, price }
+        Item: { id, name }
     };
 
     try {
@@ -60,17 +60,17 @@ app.post('/products', async (req, res) => {
 
 // 📌 PUT update product
 app.put('/products/:id', async (req, res) => {
-    const { name, price } = req.body;
-    if (!name || !price) {
-        return res.status(400).json({ error: 'Missing name or price' });
+    const { name } = req.body;
+    if (!name ) {
+        return res.status(400).json({ error: 'Missing name ' });
     }
 
     const params = {
         TableName: TABLE_NAME,
         Key: { id: req.params.id },
-        UpdateExpression: "set #nm = :n, price = :p",
+        UpdateExpression: "set #nm = :n",
         ExpressionAttributeNames: { "#nm": "name" },
-        ExpressionAttributeValues: { ":n": name, ":p": price },
+        ExpressionAttributeValues: { ":n": name },
         ReturnValues: "UPDATED_NEW"
     };
 

@@ -53,3 +53,6 @@ testing/
 **/npm-debug.log
 **/.env
 **/.DS_Store
+
+**/certificate.pem
+**/terraform_manifest/*.pem

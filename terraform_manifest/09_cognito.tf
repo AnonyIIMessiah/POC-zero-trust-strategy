@@ -30,14 +30,14 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
   allowed_oauth_scopes                 = ["openid", "email", "profile"]
   supported_identity_providers         = ["COGNITO"]
 
-  # callback_urls = ["https://${aws_lb.app_lb.dns_name}/callback"]
-  # logout_urls   = ["https://${aws_lb.app_lb.dns_name}/logout"]
-  callback_urls = ["http://localhost:3000/callback"]
-  logout_urls   = ["http://localhost:3000/logout"]
+  callback_urls = ["https://${aws_lb.app_lb.dns_name}/callback"]
+  logout_urls   = ["https://${aws_lb.app_lb.dns_name}/logout"]
+  # callback_urls = ["https://ec2-65-1-134-229.ap-south-1.compute.amazonaws.com/callback"]
+  # logout_urls   = ["https://ec2-65-1-134-229.ap-south-1.compute.amazonaws.com/logout"]
 }
 
 resource "aws_cognito_user_pool_domain" "user_pool_domain" {
-  domain       = "myapp-auth-domain-jpaihg"  # ✅ lowercase only
+  domain       = "myapp-auth-domain-jpaihg" # ✅ lowercase only
   user_pool_id = aws_cognito_user_pool.user_pool.id
 }
 

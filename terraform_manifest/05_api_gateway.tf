@@ -125,9 +125,9 @@ resource "aws_apigatewayv2_api" "api" {
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_headers = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
-    allow_methods = ["*"] # Keep this as it tells the browser which methods are allowed generally
-    allow_origins = ["http://localhost:3000"]
+    allow_headers     = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
+    allow_methods     = ["*"] # Keep this as it tells the browser which methods are allowed generally
+    allow_origins     = ["http://localhost:3000","https://${aws_lb.app_lb.dns_name}"]
     allow_credentials = true
     expose_headers    = []
     max_age           = 300
@@ -183,7 +183,7 @@ resource "aws_apigatewayv2_route" "options_users" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /users"
   target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_users.id}" # Link to new OPTIONS integration
-  authorization_type = "NONE" # Crucial: No authorization for OPTIONS
+  authorization_type = "NONE"                                                                     # Crucial: No authorization for OPTIONS
 }
 
 # Dummy Integration for OPTIONS /users (HTTP API doesn't need a mock, just a direct response)
@@ -232,7 +232,7 @@ resource "aws_apigatewayv2_route" "options_users_with_id" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /users/{id}"
   target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_users.id}" # Can point to your users Lambda, but Lambda should return 200 for OPTIONS
-  authorization_type = "NONE" # Crucial: No authorization for OPTIONS
+  authorization_type = "NONE"                                                                     # Crucial: No authorization for OPTIONS
 }
 
 # Route for ANY /users/{id}
@@ -259,7 +259,7 @@ resource "aws_apigatewayv2_route" "options_products" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /products"
   target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_products.id}" # Can point to your products Lambda
-  authorization_type = "NONE" # Crucial: No authorization for OPTIONS
+  authorization_type = "NONE"                                                                        # Crucial: No authorization for OPTIONS
 }
 
 # Route for ANY /products
@@ -276,7 +276,7 @@ resource "aws_apigatewayv2_route" "options_products_with_id" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /products/{id}"
   target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_products.id}" # Can point to your products Lambda
-  authorization_type = "NONE" # Crucial: No authorization for OPTIONS
+  authorization_type = "NONE"                                                                        # Crucial: No authorization for OPTIONS
 }
 
 # Route for ANY /products/{id}

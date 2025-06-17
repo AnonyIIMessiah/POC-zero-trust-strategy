@@ -5,7 +5,13 @@ set -e
 
 # Replace this with your API Gateway URL at runtime via script/template interpolation
 API_URL_PLACEHOLDER="${api_url}"
-
+USER_POOL_ID="${user_pool_id}"
+USER_POOL_WEB_CLIENT_ID="${user_pool_web_client_id}"
+APP_REGION="ap-south-1"
+APP_AUTH_DOMAIN="${app_auth_domain}"
+REDIRECT_SIGN_IN="${redirect_sign_in}"
+REDIRECT_SIGN_OUT="${redirect_sign_out}"
+RESPONSE_TYPE="code"
 # System update
 yum update -y
 
@@ -21,6 +27,13 @@ APP_DIR="03_frontend"
 
 # Inject API Gateway URL into .env
 echo "REACT_APP_API_URL=$API_URL_PLACEHOLDER" > "$APP_DIR/.env"
+echo "REACT_APP_USER_POOL_ID=$USER_POOL_ID" >> "$APP_DIR/.env"
+echo "REACT_APP_USER_POOL_WEB_CLIENT_ID=$USER_POOL_WEB_CLIENT_ID" >> "$APP_DIR/.env"
+echo "REACT_APP_REGION=$APP_REGION" >> "$APP_DIR/.env"
+echo "REACT_APP_AUTH_DOMAIN=$APP_AUTH_DOMAIN" >> "$APP_DIR/.env"
+echo "REACT_APP_REDIRECT_SIGN_IN=$REDIRECT_SIGN_IN" >> "$APP_DIR/.env"
+echo "REACT_APP_REDIRECT_SIGN_OUT=$REDIRECT_SIGN_OUT" >> "$APP_DIR/.env"
+echo "REACT_APP_RESPONSE_TYPE=$RESPONSE_TYPE" >> "$APP_DIR/.env"
 
 # Install Nginx
 dnf install nginx -y

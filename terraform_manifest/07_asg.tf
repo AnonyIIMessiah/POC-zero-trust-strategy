@@ -5,7 +5,7 @@ resource "aws_launch_template" "frontend" {
   key_name      = "temp-key"
 
   vpc_security_group_ids = [aws_security_group.private_ec2_sg.id]
-  
+
   user_data = base64encode(templatefile("${path.module}/user_data.sh", {
     api_url = aws_apigatewayv2_api.api.api_endpoint
   }))
@@ -42,10 +42,10 @@ resource "aws_security_group" "private_ec2_sg" {
 
 
 resource "aws_autoscaling_group" "frontend_asg" {
-  name                      = "frontend-asg"
-  desired_capacity          = 1
-  max_size                  = 3
-  min_size                  = 1
+  name                = "frontend-asg"
+  desired_capacity    = 1
+  max_size            = 3
+  min_size            = 1
   vpc_zone_identifier = [aws_subnet.Private-subnet-1.id, aws_subnet.Private-subnet-2.id]
   target_group_arns   = [aws_lb_target_group.app_tg.arn]
   launch_template {

@@ -6,7 +6,7 @@ resource "aws_dynamodb_table" "Users" {
   attribute {
     name = "id"
     type = "S"
-  }  
+  }
 }
 
 resource "aws_dynamodb_table" "Products" {
@@ -17,5 +17,5 @@ resource "aws_dynamodb_table" "Products" {
   attribute {
     name = "id"
     type = "S"
-  }  
+  }
 }

@@ -29,12 +29,12 @@
 # resource "aws_instance" "public_instance" {
 #   ami                    = "ami-0b09627181c8d5778"
 #   instance_type          = "t2.micro"
-#   key_name               = "temp-key"
+#   key_name               = "POC"
 #   subnet_id              = aws_subnet.Public-subnet-1.id
 #   vpc_security_group_ids = [aws_security_group.public_ec2_ssh.id]
-#   user_data = templatefile("${path.module}/user_data.sh", {
-#     api_url = aws_apigatewayv2_api.api.api_endpoint
-#   })
+#   #   user_data = templatefile("${path.module}/user_data.sh", {
+#   #     api_url = aws_apigatewayv2_api.api.api_endpoint
+#   #   })
 # }
 
 # output "public_ip_ec2" {

@@ -127,7 +127,7 @@ resource "aws_apigatewayv2_api" "api" {
   cors_configuration {
     allow_headers     = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
     allow_methods     = ["*"] # Keep this as it tells the browser which methods are allowed generally
-    allow_origins     = ["http://localhost:3000","https://${aws_lb.app_lb.dns_name}"]
+    allow_origins     = ["http://localhost:3000", "https://${aws_lb.app_lb.dns_name}"]
     allow_credentials = true
     expose_headers    = []
     max_age           = 300

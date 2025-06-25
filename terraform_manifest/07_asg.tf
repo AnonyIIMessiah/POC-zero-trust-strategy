@@ -2,7 +2,7 @@ resource "aws_launch_template" "frontend" {
   name_prefix   = "frontend-"
   image_id      = "ami-0b09627181c8d5778"
   instance_type = "t2.small"
-  key_name      = "temp-key"
+  key_name      = "POC"
 
   vpc_security_group_ids = [aws_security_group.private_ec2_sg.id]
 
@@ -36,6 +36,14 @@ resource "aws_security_group" "private_ec2_sg" {
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }
+  # Example SG rule
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["11.0.0.0/16", "12.0.0.0/16"]
+  }
+
 
   egress {
     from_port   = 0

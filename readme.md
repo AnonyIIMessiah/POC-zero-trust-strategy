@@ -77,7 +77,7 @@ Design for compromise with:
 
 ## 🏗️ Architecture
 
-
+![Architecture](Architecture.png)
 
 ## 📦 Project Structure
 

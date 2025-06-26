@@ -74,7 +74,7 @@ resource "aws_lambda_function" "user-service" {
 
 
   vpc_config {
-    subnet_ids         = [aws_subnet.Private-subnet-1.id, aws_subnet.Private-subnet-2.id]
+    subnet_ids         = [aws_subnet.Private-subnet-main-1.id, aws_subnet.Private-subnet-main-2.id]
     security_group_ids = [aws_security_group.lambda_sg.id]
   }
 }
@@ -83,7 +83,7 @@ resource "aws_lambda_function" "user-service" {
 resource "aws_security_group" "lambda_sg" {
   name        = "lambda_sg"
   description = "Security group for private Lambda"
-  vpc_id      = aws_vpc.POC-01.id # Replace with your actual VPC
+  vpc_id      = aws_vpc.main.id # Replace with your actual VPC
 
   # Egress rule to allow outbound traffic (e.g., to DynamoDB endpoint)
   egress {

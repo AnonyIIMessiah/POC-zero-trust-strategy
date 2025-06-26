@@ -10,8 +10,3 @@ variable "enable_vpn" {
   default     = true
 }
 
-variable "bi_vpn" {
-  description = "Enable bi-directional VPN connection for branch office"
-  type        = bool
-  default     = false
-}

@@ -1,4 +1,4 @@
-# # Public EC2 Instance
+# # Public EC2 Instance for testing
 # resource "aws_security_group" "public_ec2_ssh" {
 #   name        = "public_ec2_ssh"
 #   description = "Allow SSH and HTTP access"
@@ -23,14 +23,14 @@
 #     protocol    = "-1"
 #     cidr_blocks = ["0.0.0.0/0"]
 #   }
-#   vpc_id = aws_vpc.POC-01.id
+#   vpc_id = aws_vpc.main.id
 # }
 
 # resource "aws_instance" "public_instance" {
 #   ami                    = "ami-0b09627181c8d5778"
 #   instance_type          = "t2.micro"
 #   key_name               = "POC"
-#   subnet_id              = aws_subnet.Public-subnet-1.id
+#   subnet_id              = aws_subnet.Public-subnet-main-1.id
 #   vpc_security_group_ids = [aws_security_group.public_ec2_ssh.id]
 #   #   user_data = templatefile("${path.module}/user_data.sh", {
 #   #     api_url = aws_apigatewayv2_api.api.api_endpoint

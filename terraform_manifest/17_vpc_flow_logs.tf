@@ -27,7 +27,7 @@
 #   log_destination_type = "cloud-watch-logs"
 #   log_destination      = aws_cloudwatch_log_group.vpc_flow_logs.arn
 #   iam_role_arn         = aws_iam_role.vpc_flow_log_role.arn
-#   vpc_id               = aws_vpc.POC-01.id
+#   vpc_id               = aws_vpc.main.id
 #   traffic_type         = "ALL" # ACCEPT | REJECT | ALL
 # }
 

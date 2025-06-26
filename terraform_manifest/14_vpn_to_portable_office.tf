@@ -1,9 +1,9 @@
 resource "aws_vpn_gateway" "poc_vgw" {
   count = var.enable_vpn ? 1 : 0
 
-  vpc_id = aws_vpc.POC-01.id
+  vpc_id = aws_vpc.main.id
   tags = {
-    Name = "POC-01-VGW"
+    Name = "main-VGW"
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_vpn_connection_route" "to_branch_vpc" {
 }
 resource "aws_route" "poc_to_branch" {
   count                  = var.enable_vpn ? 1 : 0
-  route_table_id         = aws_route_table.private-route-table.id
+  route_table_id         = aws_route_table.private-route-table-main.id
   destination_cidr_block = "12.0.0.0/16"
   gateway_id             = aws_vpn_gateway.poc_vgw[0].id
 }
@@ -93,7 +93,7 @@ resource "aws_security_group" "branch_vpn_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["203.34.117.5/32"] # Limit for security
+    cidr_blocks = ["203.34.117.5/32"] # replace with your current IP address. Limit for security
   }
 
   egress {
@@ -109,7 +109,7 @@ resource "aws_security_group" "branch_vpn_sg" {
 }
 resource "aws_instance" "branch_vpn" {
   count                       = var.enable_vpn ? 1 : 0
-  ami                         = "ami-00b7ea845217da02c" # Amazon Linux 2 or suitable
+  ami                         = "ami-00b7ea845217da02c" # Amazon Linux 2 
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.public[0].id
   associate_public_ip_address = true
@@ -196,10 +196,7 @@ resource "aws_eip_association" "vpn_assoc" {
   instance_id   = aws_instance.branch_vpn[0].id
 }
 
-# output "psk-tunnel-1" {
-#   value = aws_vpn_connection.poc_to_branch.tunnel1_preshared_key
-#   sensitive = true
-# }
+
 output "address-tunnel-2" {
   value     = aws_vpn_connection.poc_to_branch[0].tunnel2_address
   sensitive = false

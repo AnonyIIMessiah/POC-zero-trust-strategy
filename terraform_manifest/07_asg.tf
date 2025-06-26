@@ -28,7 +28,7 @@ resource "aws_launch_template" "frontend" {
 resource "aws_security_group" "private_ec2_sg" {
   name        = "private_ec2_sg"
   description = "Allow traffic from ALB only"
-  vpc_id      = aws_vpc.POC-01.id
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     from_port       = 80
@@ -36,7 +36,7 @@ resource "aws_security_group" "private_ec2_sg" {
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }
-  # Example SG rule
+  
   ingress {
     from_port   = 22
     to_port     = 22
@@ -59,7 +59,7 @@ resource "aws_autoscaling_group" "frontend_asg" {
   desired_capacity    = 1
   max_size            = 3
   min_size            = 1
-  vpc_zone_identifier = [aws_subnet.Private-subnet-1.id, aws_subnet.Private-subnet-2.id]
+  vpc_zone_identifier = [aws_subnet.Private-subnet-main-1.id, aws_subnet.Private-subnet-main-2.id]
   target_group_arns   = [aws_lb_target_group.app_tg.arn]
   launch_template {
     id      = aws_launch_template.frontend.id

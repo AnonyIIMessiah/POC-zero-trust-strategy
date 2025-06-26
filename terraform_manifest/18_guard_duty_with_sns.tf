@@ -7,7 +7,7 @@
 # resource "aws_sns_topic_subscription" "email" {
 #   topic_arn = aws_sns_topic.guardduty_topic.arn
 #   protocol  = "email"
-#   endpoint  = "your-email@example.com" # Replace with your email
+#   endpoint  = "vaman1650.a@gmail.com" # Replace with your email
 # }
 # resource "aws_cloudwatch_event_rule" "guardduty_findings" {
 #   name        = "guardduty-findings-to-sns"

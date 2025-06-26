@@ -2,7 +2,6 @@
 # This is NOT for production and WILL cause browser security warnings.
 resource "aws_iam_server_certificate" "self_signed_cert" {
   name = "my-self-signed-cert"
-  # The file() function reads the content from the generated files
   certificate_body = file("certificate.pem")
   private_key      = file("private-key.pem")
 
@@ -11,11 +10,11 @@ resource "aws_iam_server_certificate" "self_signed_cert" {
   }
 }
 
-# ALB Security Group (public access)
+# ALB Security Group 
 resource "aws_security_group" "alb_sg" {
   name        = "alb_sg"
   description = "Allow HTTP inbound traffic"
-  vpc_id      = aws_vpc.POC-01.id
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     protocol    = "tcp"
@@ -23,7 +22,6 @@ resource "aws_security_group" "alb_sg" {
     to_port     = 443
     cidr_blocks = ["12.0.0.0/16"]
   }
-  # Example SG rule
   ingress {
     from_port   = 0
     to_port     = 65535
@@ -54,10 +52,10 @@ resource "aws_lb" "app_lb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = [aws_subnet.Public-subnet-1.id, aws_subnet.Public-subnet-2.id]
+  subnets            = [aws_subnet.Public-subnet-main-1.id, aws_subnet.Public-subnet-main-2.id]
 }
 
-resource "aws_security_group_rule" "example" {
+resource "aws_security_group_rule" "allow_https_from_windows" {
   type              = "ingress"
   from_port         = 443
   to_port           = 443
@@ -65,14 +63,14 @@ resource "aws_security_group_rule" "example" {
   cidr_blocks       = ["${aws_instance.windows_server.public_ip}/32"]
   description       = "Allow HTTPS traffic from Windows Server"
   security_group_id = aws_security_group.alb_sg.id
-  depends_on = [ aws_instance.windows_server ]
+  depends_on        = [aws_instance.windows_server]
 }
 
 resource "aws_lb_target_group" "app_tg" {
   name     = "app-tg"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.POC-01.id
+  vpc_id   = aws_vpc.main.id
 
   health_check {
     path                = "/"
@@ -95,5 +93,5 @@ resource "aws_lb_listener" "app_listener" {
 }
 
 output "alb_dns_name" {
-  value = aws_lb.app_lb.dns_name
+  value = "https://${aws_lb.app_lb.dns_name}"
 }

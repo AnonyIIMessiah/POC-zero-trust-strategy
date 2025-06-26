@@ -1,6 +1,6 @@
 # This Terraform configuration creates an AWS Access Analyzer
-# resource "aws_accessanalyzer_analyzer" "example" {
-#   analyzer_name = "example"
+# resource "aws_accessanalyzer_analyzer" "unused_access_analyzer" {
+#   analyzer_name = "unused_access_analyzer"
 #   type          = "ORGANIZATION_UNUSED_ACCESS"
 
 #   configuration {

@@ -49,10 +49,6 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution_product" {
   role       = aws_iam_role.iam_for_lambda_product.name
 }
 
-# resource "aws_iam_role_policy_attachment" "db_access" {
-#   role       = aws_iam_role.iam_for_lambda.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"
-# }
 
 
 data "archive_file" "lambda_products" {
@@ -71,7 +67,7 @@ resource "aws_lambda_function" "product-service" {
 
 
   vpc_config {
-    subnet_ids         = [aws_subnet.Private-subnet-1.id, aws_subnet.Private-subnet-2.id]
+    subnet_ids         = [aws_subnet.Private-subnet-main-1.id, aws_subnet.Private-subnet-main-2.id]
     security_group_ids = [aws_security_group.lambda_sg_product.id]
   }
 }
@@ -80,9 +76,8 @@ resource "aws_lambda_function" "product-service" {
 resource "aws_security_group" "lambda_sg_product" {
   name        = "lambda_sg_product"
   description = "Security group for private Lambda"
-  vpc_id      = aws_vpc.POC-01.id # Replace with your actual VPC
+  vpc_id      = aws_vpc.main.id
 
-  # Egress rule to allow outbound traffic (e.g., to DynamoDB endpoint)
   egress {
     from_port   = 0
     to_port     = 0

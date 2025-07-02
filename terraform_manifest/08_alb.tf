@@ -1,7 +1,7 @@
 # WARNING: This uploads a self-signed certificate.
 # This is NOT for production and WILL cause browser security warnings.
 resource "aws_iam_server_certificate" "self_signed_cert" {
-  name = "my-self-signed-cert"
+  name             = "my-self-signed-cert"
   certificate_body = file("certificate.pem")
   private_key      = file("private-key.pem")
 

@@ -36,7 +36,7 @@ resource "aws_security_group" "private_ec2_sg" {
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }
-  
+
   ingress {
     from_port   = 22
     to_port     = 22

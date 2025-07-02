@@ -43,8 +43,8 @@ resource "aws_apigatewayv2_integration" "lambda_integration_users" {
 resource "aws_apigatewayv2_route" "options_users" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /users"
-  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_users.id}" 
-  authorization_type = "NONE"                                                                     
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_users.id}"
+  authorization_type = "NONE"
 }
 
 # Route for ANY /users (actual requests with JWT authorization)
@@ -60,8 +60,8 @@ resource "aws_apigatewayv2_route" "users_any" {
 resource "aws_apigatewayv2_route" "options_users_with_id" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /users/{id}"
-  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_users.id}" 
-  authorization_type = "NONE"                                                                     
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_users.id}"
+  authorization_type = "NONE"
 }
 
 # Route for ANY /users/{id}
@@ -87,8 +87,8 @@ resource "aws_apigatewayv2_integration" "lambda_integration_products" {
 resource "aws_apigatewayv2_route" "options_products" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /products"
-  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_products.id}" 
-  authorization_type = "NONE"                                                                        
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_products.id}"
+  authorization_type = "NONE"
 }
 
 # Route for ANY /products
@@ -104,8 +104,8 @@ resource "aws_apigatewayv2_route" "products_any" {
 resource "aws_apigatewayv2_route" "options_products_with_id" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "OPTIONS /products/{id}"
-  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_products.id}" 
-  authorization_type = "NONE"                                                                        
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration_products.id}"
+  authorization_type = "NONE"
 }
 
 # Route for ANY /products/{id}
